@@ -37,7 +37,8 @@
             getClassColor,
             filterRoster () {
                 this.filteredRoster = this.roster.filter(member => {
-                    return member.name.includes(this.filterCriteria)
+                    return member.name.toLowerCase()
+                      .includes(this.filterCriteria.toLowerCase())
                 })
             }
         }
