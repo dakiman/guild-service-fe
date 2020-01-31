@@ -1,8 +1,13 @@
 import axios from 'axios'
 
 const GuildService = {
-    getGuild (realm, guild, region) {
-        return axios.get(`guild/${realm}/${guild}?locale=${region}`)
+
+    getGuildFull(realm, guild, region) {
+        return axios.get(`guild/${realm}/${guild}/full?locale=${region}`)
+    },
+
+    getGuildBasic(realm, guild, region) {
+        return axios.get(`guild/${realm}/${guild}/basic?locale=${region}`)
     }
 }
 

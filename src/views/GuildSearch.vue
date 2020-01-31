@@ -5,43 +5,43 @@
                 <div class="col-md-5">
                     <b-form @submit="getGuild">
                         <b-form-group
-                                label="Realm"
-                                label-for="realm"
+                            label="Realm"
+                            label-for="realm"
                         >
                             <b-form-input
-                                    id="realm"
-                                    v-model="form.realm"
+                                id="realm"
+                                v-model="form.realm"
                             />
                         </b-form-group>
                         <b-form-group
-                                label="Region"
-                                label-for="region"
+                            label="Region"
+                            label-for="region"
                         >
                             <b-form-select
-                                    :options="regions"
-                                    id="region"
-                                    v-model="form.region"
+                                :options="regions"
+                                id="region"
+                                v-model="form.region"
                             />
                         </b-form-group>
                         <b-form-group
-                                label="Guild Name"
-                                label-for="guildName"
+                            label="Guild Name"
+                            label-for="guildName"
                         >
                             <b-form-input
-                                    id="guildName"
-                                    v-model="form.guildName"
+                                id="guildName"
+                                v-model="form.guildName"
                             />
                         </b-form-group>
                         <b-form-group>
                             <b-button
-                                    block
-                                    type="submit"
-                                    variant="primary">
+                                block
+                                type="submit"
+                                variant="primary">
                                 <div v-if="!loading">Find guild</div>
                                 <div v-else>
                                     <b-spinner
-                                            variant="primary"
-                                            key="primary"
+                                        variant="primary"
+                                        key="primary"
                                     />
                                 </div>
                             </b-button>
@@ -49,7 +49,28 @@
                     </b-form>
                 </div>
                 <div class="col offset-md-1" v-if="guild != null">
-                    <roster-list :roster="guild.roster"/>
+                    <b-card
+                        :border-variant="factionColor"
+                        :header-bg-variant="factionColor"
+                        header-text-variant="white"
+                        align="left">
+
+                        <template v-slot:header>
+                            <span class="float-left">{{ guild.name }}</span>
+                            <span class="float-right">{{ guild.realm }}</span>
+                        </template>
+
+                        <div>
+                            Members: {{ guild.memberCount }} <br>
+                            Achievement Points: {{ guild.achievementPoints }} <br>
+                            Created at: {{ guildCreationDate }}
+                            <b-button class="mt-2 p-1"
+                                      :variant="factionColor"
+                                      block>
+                                See more
+                            </b-button>
+                        </div>
+                    </b-card>
                 </div>
             </div>
         </div>
@@ -67,7 +88,7 @@
             RosterList
         },
 
-        data () {
+        data() {
             return {
                 form: {
                     region: null,
@@ -76,21 +97,28 @@
                 },
                 guild: null,
                 regions: ['EU', 'US', 'CH', 'AU'],
-                realms: ['The Maelstrom'],
                 loading: false,
-                filteredRoster: null,
             }
         },
-
+        computed: {
+            factionColor: function () {
+                if (this.guild.faction == 'Alliance')
+                    return 'primary'
+                return 'danger'
+            },
+            guildCreationDate: function (epoch) {
+                return new Date(this.guild.created).toDateString();
+            }
+        },
         methods: {
-            getGuild () {
+            getGuild() {
                 this.guild = null
                 this.loading = true
-                GuildService.getGuild(this.form.realm, this.form.guildName, this.form.region)
-                  .then(({ data }) => this.guild = data.guild)
-                  .catch((e) => console.log('Error happened', e))
-                  .finally(() => this.loading = false)
-            },
+                GuildService.getGuildBasic(this.form.realm, this.form.guildName, this.form.region)
+                    .then(({data}) => this.guild = data.guild)
+                    .catch((e) => console.log('Error happened', e))
+                    .finally(() => this.loading = false)
+            }
         }
     }
 </script>
