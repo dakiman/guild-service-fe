@@ -48,7 +48,8 @@
                         </b-form-group>
                     </b-form>
                 </div>
-                <div class="col offset-md-1" v-if="guild != null">
+                <div class="col offset-md-1"
+                     v-if="guild != null">
                     <b-card
                         :border-variant="factionColor"
                         :header-bg-variant="factionColor"
@@ -79,14 +80,9 @@
 
 <script>
     import GuildService from '@/services/GuildService'
-    import RosterList from '@/components/RosterList'
 
     export default {
         name: 'GuildSearch',
-
-        components: {
-            RosterList
-        },
 
         data() {
             return {
@@ -100,16 +96,18 @@
                 loading: false,
             }
         },
+
         computed: {
             factionColor: function () {
-                if (this.guild.faction == 'Alliance')
+                if (this.guild.faction.toLowerCase().includes('alliance'))
                     return 'primary'
                 return 'danger'
             },
-            guildCreationDate: function (epoch) {
+            guildCreationDate: function () {
                 return new Date(this.guild.created).toDateString();
             }
         },
+
         methods: {
             getGuild() {
                 this.guild = null
@@ -120,5 +118,6 @@
                     .finally(() => this.loading = false)
             }
         }
+
     }
 </script>
