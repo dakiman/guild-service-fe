@@ -5,43 +5,43 @@
                 <div class="col-md-5">
                     <b-form @submit="getGuild">
                         <b-form-group
-                            label="Realm"
-                            label-for="realm"
+                                label="Realm"
+                                label-for="realm"
                         >
                             <b-form-input
-                                id="realm"
-                                v-model="form.realm"
+                                    id="realm"
+                                    v-model="form.realm"
                             />
                         </b-form-group>
                         <b-form-group
-                            label="Region"
-                            label-for="region"
+                                label="Region"
+                                label-for="region"
                         >
                             <b-form-select
-                                :options="regions"
-                                id="region"
-                                v-model="form.region"
+                                    :options="regions"
+                                    id="region"
+                                    v-model="form.region"
                             />
                         </b-form-group>
                         <b-form-group
-                            label="Guild Name"
-                            label-for="guildName"
+                                label="Guild Name"
+                                label-for="guildName"
                         >
                             <b-form-input
-                                id="guildName"
-                                v-model="form.guildName"
+                                    id="guildName"
+                                    v-model="form.guildName"
                             />
                         </b-form-group>
                         <b-form-group>
                             <b-button
-                                block
-                                type="submit"
-                                variant="primary">
+                                    block
+                                    type="submit"
+                                    variant="primary">
                                 <div v-if="!loading">Find guild</div>
                                 <div v-else>
                                     <b-spinner
-                                        variant="primary"
-                                        key="primary"
+                                            variant="primary"
+                                            key="primary"
                                     />
                                 </div>
                             </b-button>
@@ -51,10 +51,10 @@
                 <div class="col offset-md-1"
                      v-if="guild != null">
                     <b-card
-                        :border-variant="factionColor"
-                        :header-bg-variant="factionColor"
-                        header-text-variant="white"
-                        align="left">
+                            :border-variant="factionColor"
+                            :header-bg-variant="factionColor"
+                            header-text-variant="white"
+                            align="left">
 
                         <template v-slot:header>
                             <span class="float-left">{{ guild.name }}</span>
@@ -66,8 +66,8 @@
                             Achievement Points: {{ guild.achievementPoints }} <br>
                             Created at: {{ guildCreationDate }}
                             <b-button class="mt-2 p-1"
+                                      @click="$router.push({name: 'singleGuild', params: { region: form.region, realm: form.realm, name: form.guildName }})"
                                       :variant="factionColor"
-                                      href=""
                                       block>
                                 See more
                             </b-button>
@@ -85,7 +85,7 @@
     export default {
         name: 'GuildSearch',
 
-        data() {
+        data () {
             return {
                 form: {
                     region: null,
@@ -100,23 +100,24 @@
 
         computed: {
             factionColor: function () {
-                if (this.guild.faction.toLowerCase().includes('alliance'))
+                if (this.guild.faction.toLowerCase().includes('alliance')) {
                     return 'alliance'
+                }
                 return 'horde'
             },
             guildCreationDate: function () {
-                return new Date(this.guild.created).toDateString();
+                return new Date(this.guild.created).toDateString()
             }
         },
 
         methods: {
-            getGuild() {
+            getGuild () {
                 this.guild = null
                 this.loading = true
                 GuildService.getGuildBasic(this.form.realm, this.form.guildName, this.form.region)
-                    .then(({data}) => this.guild = data.guild)
-                    .catch((e) => console.log('Error happened', e))
-                    .finally(() => this.loading = false)
+                  .then(({ data }) => this.guild = data.guild)
+                  .catch((e) => console.log('Error happened', e))
+                  .finally(() => this.loading = false)
             }
         }
 
