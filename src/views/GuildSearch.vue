@@ -67,6 +67,7 @@
                             Created at: {{ guildCreationDate }}
                             <b-button class="mt-2 p-1"
                                       :variant="factionColor"
+                                      href=""
                                       block>
                                 See more
                             </b-button>
@@ -100,8 +101,8 @@
         computed: {
             factionColor: function () {
                 if (this.guild.faction.toLowerCase().includes('alliance'))
-                    return 'primary'
-                return 'danger'
+                    return 'alliance'
+                return 'horde'
             },
             guildCreationDate: function () {
                 return new Date(this.guild.created).toDateString();
