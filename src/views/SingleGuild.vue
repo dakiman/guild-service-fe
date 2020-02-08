@@ -16,35 +16,23 @@
         name: 'SingleGuild',
         components: { RosterList },
 
-        data() {
+        data () {
             return {
                 guild: null,
             }
         },
 
         mounted () {
-            this.getGuild();
-        },
-
-        computed: {
-            factionColor: function () {
-                if (this.guild.faction.toLowerCase().includes('alliance'))
-                    return 'alliance'
-                return 'horde'
-            },
-            guildCreationDate: function () {
-                return new Date(this.guild.created).toDateString();
-            }
+            this.getGuild()
         },
 
         methods: {
-            getGuild() {
+            getGuild () {
                 this.guild = null
-                this.loading = true
                 GuildService.getGuildFull(this.$route.params.realm, this.$route.params.name, this.$route.params.region)
-                    .then(({data}) => this.guild = data.guild)
-                    .catch((e) => console.log('Error happened', e))
-                    .finally(() => this.loading = false)
+                  .then(({ data }) => this.guild = data.guild)
+                  .catch((e) => console.log('Error happened', e))
+                  .finally(() => this.loading = false)
             }
         }
 

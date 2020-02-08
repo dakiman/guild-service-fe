@@ -49,7 +49,7 @@
                     </b-form>
                 </div>
                 <div class="col offset-md-1"
-                     v-if="guild != null">
+                     v-if="guild">
                     <b-card
                             :border-variant="factionColor"
                             :header-bg-variant="factionColor"
