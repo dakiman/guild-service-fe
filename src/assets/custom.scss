@@ -1,8 +1,13 @@
+
 $theme-colors: (
         "horde": #8C1616,
         "alliance": #162c57
 );
+//$enable-rounded: false;
+$primary: #212529;
+$body-bg: #3e3e53;
 
-// Include Bootstrap and BootstrapVue SCSS files
-@import '~bootstrap/scss/bootstrap';
-@import '~bootstrap-vue/src/index';
+//
+@import '~bootswatch/dist/superhero/variables';
+@import "~bootstrap/scss/bootstrap";
+@import '~bootswatch/dist/superhero/bootswatch';

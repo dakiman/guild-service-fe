@@ -57,8 +57,9 @@
                             align="left">
 
                         <template v-slot:header>
-                            <span class="float-left">{{ guild.name }}</span>
-                            <span class="float-right">{{ guild.realm }}</span>
+                            <span class="float-left h4 mt-2">{{ guild.name }}</span>
+                            <img class="img-fluid m-1" style="width: 5%; height: 5%;" :src="factionLogo" alt="">
+                            <span class="float-right mt-2">{{ guild.realm }}</span>
                         </template>
 
                         <div>
@@ -107,6 +108,9 @@
             },
             guildCreationDate: function () {
                 return new Date(this.guild.created).toDateString()
+            },
+            factionLogo: function () {
+                return require('@/assets/' + this.factionColor + '-logo.png');
             }
         },
 
@@ -123,3 +127,6 @@
 
     }
 </script>
+
+<style>
+</style>
