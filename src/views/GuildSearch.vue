@@ -6,31 +6,25 @@
                     <b-form @submit="getGuild">
                         <b-form-group
                                 label="Realm"
-                                label-for="realm"
-                        >
+                                label-for="realm" >
                             <b-form-input
                                     id="realm"
-                                    v-model="form.realm"
-                            />
-                        </b-form-group>
-                        <b-form-group
-                                label="Region"
-                                label-for="region"
-                        >
-                            <b-form-select
-                                    :options="regions"
-                                    id="region"
-                                    v-model="form.region"
-                            />
+                                    v-model="form.realm" />
                         </b-form-group>
                         <b-form-group
                                 label="Guild Name"
-                                label-for="guildName"
-                        >
+                                label-for="guildName" >
                             <b-form-input
                                     id="guildName"
-                                    v-model="form.guildName"
-                            />
+                                    v-model="form.guildName" />
+                        </b-form-group>
+                        <b-form-group
+                                label="Region"
+                                label-for="region" >
+                            <b-form-select
+                                    :options="regions"
+                                    id="region"
+                                    v-model="form.region" />
                         </b-form-group>
                         <b-form-group>
                             <b-button
@@ -41,8 +35,7 @@
                                 <div v-else>
                                     <b-spinner
                                             variant="primary"
-                                            key="primary"
-                                    />
+                                            key="primary" />
                                 </div>
                             </b-button>
                         </b-form-group>
@@ -67,7 +60,7 @@
                             Achievement Points: {{ guild.achievementPoints }} <br>
                             Created at: {{ guildCreationDate }}
                             <b-button class="mt-2 p-1"
-                                      @click="$router.push({name: 'singleGuild', params: { region: form.region, realm: form.realm, name: form.guildName }})"
+                                          @click="$router.push({name: 'singleGuild', params: { region: form.region, realm: form.realm, name: form.guildName }})"
                                       :variant="factionColor"
                                       block>
                                 See more

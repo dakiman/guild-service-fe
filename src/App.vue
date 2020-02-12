@@ -8,6 +8,7 @@
                 <b-navbar-nav>
                     <b-nav-item href="#" to="/">Home</b-nav-item>
                     <b-nav-item href="#" to="/guilds">Guilds</b-nav-item>
+                    <b-nav-item href="#" to="/characters">Characters</b-nav-item>
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
