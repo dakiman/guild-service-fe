@@ -57,9 +57,9 @@
                             align="left">
 
                         <template v-slot:header>
-                            <span class="float-left h4 mt-2">{{ guild.name }}</span>
-                            <img class="img-fluid m-1" style="width: 5%; height: 5%;" :src="factionLogo" alt="">
-                            <span class="float-right mt-2">{{ guild.realm }}</span>
+                            <span class="float-left h4">{{ guild.name }}</span>
+                            <img class="img-fluid m-1" style="width: 4%; height: 4%;" :src="factionLogo" alt="">
+                            <span class="float-right">{{ guild.realm }}</span>
                         </template>
 
                         <div>
@@ -89,9 +89,9 @@
         data () {
             return {
                 form: {
-                    region: null,
-                    guildName: null,
-                    realm: null
+                    region: 'EU',
+                    guildName: 'starlight',
+                    realm: 'the maelstrom'
                 },
                 guild: null,
                 regions: ['EU', 'US', 'CH', 'AU'],
@@ -110,7 +110,7 @@
                 return new Date(this.guild.created).toDateString()
             },
             factionLogo: function () {
-                return require('@/assets/' + this.factionColor + '-logo.png');
+                return require('@/assets/' + this.factionColor + '-logo.png')
             }
         },
 
@@ -129,4 +129,14 @@
 </script>
 
 <style>
+    .parent {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .child {
+        display: flex;
+        align-items: center;
+    }
 </style>

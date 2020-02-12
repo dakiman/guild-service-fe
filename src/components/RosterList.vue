@@ -10,10 +10,10 @@
             <b-list-group-item
                     v-for="member in filteredRoster"
                     :key="member.name"
-                    class="text-left"
             >
-                <span :style="{ color: getClassColor(member.class) }">{{member.name}}</span>, {{member.level}} @
-                {{member.realm}}
+                <span class="float-left" :style="{ color: getClassColor(member.class) }">{{member.name}}</span>
+                <span class="float-left">, {{member.level}} </span>
+                <span class="float-right"> {{member.realm}} </span>
             </b-list-group-item>
         </b-list-group>
     </div>
@@ -37,7 +37,8 @@
             getClassColor,
             filterRoster () {
                 this.filteredRoster = this.roster.filter(member => {
-                    return member.name.toLowerCase()
+                    return member.name
+                      .toLowerCase()
                       .includes(this.filterCriteria.toLowerCase())
                 })
             }
