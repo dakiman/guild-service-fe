@@ -39,7 +39,24 @@
                 </div>
                 <div class="col offset-md-1"
                      v-if="character">
-                    {{ character }}
+<!--                    {{ character }}-->
+                    <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+                        <b-row no-gutters>
+                            <b-col md="3">
+                                <img class="m-2 mt-3"
+                                     style="border-radius: 50%;"
+                                     :src="character.media.avatar"
+                                     alt="">
+                            </b-col>
+                            <b-col md="9">
+                                <b-card-body :title="character.name" :sub-title="character.realm">
+                                    <b-card-text>
+                                        Ello
+                                    </b-card-text>
+                                </b-card-body>
+                            </b-col>
+                        </b-row>
+                    </b-card>
                 </div>
             </div>
         </div>
@@ -49,7 +66,7 @@
 <script>
 
 
-    import CharacterService from '../services/GuildService'
+    import CharacterService from '../services/CharacterService'
 
     export default {
         name: 'CharacterSearch',

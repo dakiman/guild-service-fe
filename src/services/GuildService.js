@@ -1,11 +1,15 @@
 import axios from 'axios'
 
-const CharacterService = {
+const GuildService = {
 
-    getCharacterBasic(realm, character, region) {
-        return axios.get(`character/${realm}/${character}/basic?locale=${region}`)
+    getGuildFull (realm, guild, region) {
+        return axios.get(`guild/${realm}/${guild}/full?locale=${region}`)
+    },
+
+    getGuildBasic (realm, guild, region) {
+        return axios.get(`guild/${realm}/${guild}/basic?locale=${region}`)
     }
 
 }
 
-export default CharacterService
+export default GuildService
