@@ -88,7 +88,7 @@
             getCharacter () {
                 this.character = null
                 this.loading = true
-                CharacterService.getCharacterBasic(
+                CharacterService.getCharacter(
                   this.form.realm,
                   this.form.character,
                   this.form.region

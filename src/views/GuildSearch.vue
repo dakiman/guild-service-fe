@@ -111,7 +111,7 @@
             getGuild () {
                 this.guild = null
                 this.loading = true
-                GuildService.getGuildBasic(this.form.realm, this.form.guildName, this.form.region)
+                GuildService.getGuild(this.form.realm, this.form.guildName, this.form.region)
                   .then(({ data }) => this.guild = data.guild)
                   .catch((e) => console.log('Error happened', e))
                   .finally(() => this.loading = false)

@@ -44,7 +44,7 @@
 
 <style lang="scss">
     #app {
-        font-family: 'Fira Code Medium', Helvetica, Arial, sans-serif;
+        font-family: 'Fira Code', monospace;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
