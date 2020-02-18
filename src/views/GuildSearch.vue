@@ -6,26 +6,22 @@
                     <b-form @submit="getGuild">
                         <b-form-group
                                 label="Realm"
-                                label-for="realm" >
+                                label-for="realm">
                             <b-form-input
                                     id="realm"
-                                    v-model="form.realm" />
+                                    v-model="form.realm"/>
                         </b-form-group>
+
                         <b-form-group
                                 label="Guild Name"
-                                label-for="guildName" >
+                                label-for="guildName">
                             <b-form-input
                                     id="guildName"
-                                    v-model="form.guildName" />
+                                    v-model="form.guildName"/>
                         </b-form-group>
-                        <b-form-group
-                                label="Region"
-                                label-for="region" >
-                            <b-form-select
-                                    :options="regions"
-                                    id="region"
-                                    v-model="form.region" />
-                        </b-form-group>
+                        <region-dropdown
+                                :defaultRegion="this.form.region"
+                                @change="region => this.form.region = region"/>
                         <b-form-group>
                             <b-button
                                     block
@@ -35,7 +31,7 @@
                                 <div v-else>
                                     <b-spinner
                                             variant="primary"
-                                            key="primary" />
+                                            key="primary"/>
                                 </div>
                             </b-button>
                         </b-form-group>
@@ -60,7 +56,7 @@
                             Achievement Points: {{ guild.achievementPoints }} <br>
                             Created at: {{ guildCreationDate }}
                             <b-button class="mt-2 p-1"
-                                          @click="$router.push({name: 'singleGuild', params: { region: form.region, realm: form.realm, name: form.guildName }})"
+                                      :to="{name: 'singleGuild', params: { region: form.region, realm: form.realm, name: form.guildName }}"
                                       :variant="factionColor"
                                       block>
                                 See more
@@ -75,9 +71,11 @@
 
 <script>
     import GuildService from '@/services/GuildService'
+    import RegionDropdown from '@/components/RegionDropdown'
 
     export default {
         name: 'GuildSearch',
+        components: { RegionDropdown },
 
         data () {
             return {
@@ -87,7 +85,6 @@
                     realm: 'the maelstrom'
                 },
                 guild: null,
-                regions: ['EU', 'US', 'CH', 'AU'],
                 loading: false,
             }
         },
@@ -115,7 +112,7 @@
                   .then(({ data }) => this.guild = data.guild)
                   .catch((e) => console.log('Error happened', e))
                   .finally(() => this.loading = false)
-            }
+            },
         }
 
     }

@@ -14,14 +14,9 @@
                                     id="character"
                                     v-model="form.character"/>
                         </b-form-group>
-                        <b-form-group
-                                label="Region"
-                                label-for="region">
-                            <b-form-select
-                                    :options="regions"
-                                    id="region"
-                                    v-model="form.region"/>
-                        </b-form-group>
+                        <region-dropdown
+                                :defaultRegion="this.form.region"
+                                @change="region => this.form.region = region"/>
                         <b-form-group>
                             <b-button
                                     block
@@ -39,7 +34,7 @@
                 </div>
                 <div class="col offset-md-1"
                      v-if="character">
-<!--                    {{ character }}-->
+                    <!--                    {{ character }}-->
                     <b-card no-body class="overflow-hidden" style="max-width: 540px;">
                         <b-row no-gutters>
                             <b-col md="3">
@@ -64,12 +59,12 @@
 </template>
 
 <script>
-
-
     import CharacterService from '../services/CharacterService'
+    import RegionDropdown from '@/components/RegionDropdown'
 
     export default {
         name: 'CharacterSearch',
+        components: { RegionDropdown },
 
         data () {
             return {
