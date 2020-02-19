@@ -47,7 +47,7 @@
 
                         <template v-slot:header>
                             <span class="float-left h4">{{ guild.name }}</span>
-                            <img class="img-fluid m-1" style="width: 4%; height: 4%;" :src="factionLogo" alt="">
+                            <img class="img-fluid ml-1" :src="factionLogo" alt="">
                             <span class="float-right">{{ guild.realm }}</span>
                         </template>
 

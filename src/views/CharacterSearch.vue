@@ -34,7 +34,6 @@
                 </div>
                 <div class="col offset-md-1"
                      v-if="character">
-                    <!--                    {{ character }}-->
                     <b-card no-body class="overflow-hidden" style="max-width: 540px;">
                         <b-row no-gutters>
                             <b-col md="3">
