@@ -10,6 +10,7 @@
             <b-list-group-item
                     v-for="member in filteredRoster"
                     :key="member.name"
+                    :to="{name: 'singleCharacter', params: { region: member.region, realm: member.realm, name: member.name }}"
             >
                 <span class="float-left" :style="{ color: getClassColor(member.class) }">{{member.name}}</span>
                 <span class="float-left">, {{member.level}} </span>

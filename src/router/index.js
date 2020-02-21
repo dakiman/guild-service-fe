@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import SingleGuild from '../views/SingleGuild'
 import Home from '../views/Home'
 import CharacterSearch from '../views/CharacterSearch'
+import SingleCharacter from '@/views/SingleCharacter'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,11 @@ const routes = [
         path: '/characters',
         name: 'characterSearch',
         component: CharacterSearch
+    },
+    {
+        path: '/characters/:region/:realm/:name',
+        name: 'singleCharacter',
+        component: SingleCharacter
     },
 
 ]

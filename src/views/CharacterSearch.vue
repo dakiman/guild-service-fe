@@ -55,12 +55,10 @@
                         </b-row>
                         <b-row>
                             <b-col>
-                                <b-button class="mx-auto" :variant="factionColor" block @click="getRaidingData">Get RAIDERIO
-                                    data
+                                <b-button
+                                        :to="{name: 'singleCharacter', params: { region: form.region, realm: form.realm, name: form.character }}">
+                                    See more
                                 </b-button>
-                                <div v-if="character.raiderio">
-                                    {{character.raiderio}}
-                                </div>
                             </b-col>
                         </b-row>
                     </b-card>
@@ -116,20 +114,6 @@
                   .catch(e => console.log('Error happened', e))
                   .finally(() => this.loading = false)
             },
-            getRaidingData () {
-                this.character.raiderio = null
-                CharacterService.getCharacterRaiderioData(
-                  this.form.realm,
-                  this.form.character,
-                  this.form.region
-                )
-                  .then(({ data }) => {
-                      this.character.raiderio = data.raiderio
-                      // this.$root.$emit('bv::toggle::collapse', 'raiderio-collapse')
-                  })
-                  .catch(e => console.log('Error happened', e))
-                  .finally(() => this.loading = false)
-            }
         }
     }
 </script>
