@@ -1,11 +1,15 @@
 import axios from 'axios'
 
-const GuildService = {
+const CharacterService = {
 
     getCharacter (realm, character, region) {
         return axios.get(`character/${realm}/${character}?locale=${region}`)
-    }
+    },
+
+    getCharacterRaiderioData (realm, character, region) {
+        return axios.get(`character/${realm}/${character}/raiderio?locale=${region}`)
+    },
 
 }
 
-export default GuildService
+export default CharacterService
