@@ -38,10 +38,7 @@
                 <b-col md="6">
                     <div class="mb-3">
                         <b-card
-                                :border-variant="primary"
-                                :header-bg-variant="primary"
                                 header-text-variant="white"
-
                                 align="left">
 
                             <template v-slot:header>
@@ -49,6 +46,9 @@
                             </template>
                             <div>
                                 iLvl {{character.averageItemLevel}} ({{character.equippedItemLevel}})
+                                <div v-for="item in character.equipment" :key="item.id">
+                                    <a href="#" :data-wowhead="'item=' + item.id" :class="'q' + itemQualityToId(item.quality)">{{item.name}}</a>
+                                </div>
                             </div>
                         </b-card>
                     </div>
@@ -60,7 +60,7 @@
 
 <script>
     import CharacterService from '@/services/CharacterService'
-    import { getClass, getClassColor } from '@/modules/staticData'
+    import { getClass, getClassColor, itemQualityToId } from '@/modules/staticData'
 
     export default {
         name: 'SingleCharacter',
@@ -79,6 +79,7 @@
         methods: {
             getClass,
             getClassColor,
+            itemQualityToId,
             getCharacter () {
                 this.character = null
                 this.loading = true
