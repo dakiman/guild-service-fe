@@ -41,7 +41,12 @@
                                 header-text-variant="white"
                                 align="left">
                             <template v-slot:header>
-                                <span class="float-left h6">Gear</span>
+                                <span class="float-left">Gear</span>
+                                <b-badge pill
+                                         variant="primary"
+                                         class="float-right">
+                                    iLvl: {{character.averageItemLevel}} ({{character.equippedItemLevel}})
+                                </b-badge>
                             </template>
 
                             <div class="d-inline" v-for="item in character.equipment" :key="item.id">

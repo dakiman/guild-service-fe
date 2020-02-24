@@ -22,10 +22,6 @@
             item: {
                 type: Object,
                 required: true,
-            },
-            classId: {
-                type: Number,
-                required: false,
             }
         },
         methods: {
@@ -33,6 +29,7 @@
             getItemQualityColorHex,
             getWowheadLink(item) {
                 let itemLink = 'item=' + item.id;
+                itemLink += '&ilvl=' + item.itemLevel
 
                 if(item.sockets) {
                     itemLink += '&gems='
@@ -40,8 +37,6 @@
                       itemLink += socket.gem
                     })
                 }
-
-                itemLink += '&ilvl=' + item.itemLevel
 
                 return itemLink;
             }
