@@ -40,16 +40,14 @@
                         <b-card
                                 header-text-variant="white"
                                 align="left">
-
                             <template v-slot:header>
                                 <span class="float-left h6">Gear</span>
                             </template>
-                            <div>
-                                iLvl {{character.averageItemLevel}} ({{character.equippedItemLevel}})
-                                <div v-for="item in character.equipment" :key="item.id">
-                                    <a href="#" :data-wowhead="'item=' + item.id" :class="'q' + itemQualityToId(item.quality)">{{item.name}}</a>
-                                </div>
+
+                            <div class="d-inline" v-for="item in character.equipment" :key="item.id">
+                                <item-link :item="item"/>
                             </div>
+
                         </b-card>
                     </div>
                 </b-col>
@@ -61,9 +59,11 @@
 <script>
     import CharacterService from '@/services/CharacterService'
     import { getClass, getClassColor, itemQualityToId } from '@/modules/staticData'
+    import ItemLink from '@/components/ItemLink'
 
     export default {
         name: 'SingleCharacter',
+        components: { ItemLink },
 
         data () {
             return {
@@ -86,7 +86,7 @@
                 CharacterService.getCharacter(this.$route.params.realm, this.$route.params.name, this.$route.params.region)
                   .then(({ data }) => this.character = data.character)
                   .catch(e => console.log('Error happened', e))
-                // .finally(() => this.loading = false)
+                  .finally(() => $WowheadPower.refreshLinks())
             },
             getRaidingData () {
                 this.character.raiderio = null

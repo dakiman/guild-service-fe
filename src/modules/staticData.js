@@ -72,9 +72,23 @@ const itemQualityToId = (itemQuality) => {
     return qualities[itemQuality.toLowerCase()]
 }
 
+const getItemQualityColorHex = (itemQuality) => {
+    let hexes = {
+        'poor': '#9d9d9d',
+        'common': '#ffffff',
+        'uncommon': '#1eff00',
+        'rare': '#0070dd',
+        'epic': '#a335ee',
+        'legendary': '#ff8000',
+        'artifact': '#e6cc80'
+    }
+    return hexes[itemQuality.toLowerCase()]
+}
+
 export {
     getClassColor,
     getClass,
     getRace,
-    itemQualityToId
+    itemQualityToId,
+    getItemQualityColorHex
 }
