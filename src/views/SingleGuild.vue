@@ -29,10 +29,9 @@
         methods: {
             getGuild () {
                 this.guild = null
-                GuildService.getGuildFull(this.$route.params.realm, this.$route.params.name, this.$route.params.region)
+                GuildService.getGuild(this.$route.params.realm, this.$route.params.name, this.$route.params.region)
                   .then(({ data }) => this.guild = data.guild)
                   .catch((e) => console.log('Error happened', e))
-                  .finally(() => this.loading = false)
             }
         }
 

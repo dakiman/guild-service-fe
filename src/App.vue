@@ -8,6 +8,7 @@
                 <b-navbar-nav>
                     <b-nav-item href="#" to="/">Home</b-nav-item>
                     <b-nav-item href="#" to="/guilds">Guilds</b-nav-item>
+                    <b-nav-item href="#" to="/characters">Characters</b-nav-item>
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
@@ -43,7 +44,7 @@
 
 <style lang="scss">
     #app {
-        font-family: 'Fira Code Medium', Helvetica, Arial, sans-serif;
+        font-family: 'Fira Code', monospace;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
