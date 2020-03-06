@@ -3,14 +3,6 @@
 describe('My First Test', () => {
     it('Visits the app root url', () => {
         cy.visit('https://guild-service-fe.herokuapp.com/?#/guilds/EU/the%20maelstrom/divided')
-        // cy.get('//*[@id="content"]/div/div/div/div/div[2]/a[1]');
-        // cy.xpath('//*[@id="content"]/div/div/div/div/div[2]/a').each(function (element) {
-        //   cy.wrap(element).click();
-
-        //   cy.wait(5000);
-
-        //   cy.go('back');
-        // })
         let names = [];
         cy.xpath('//*[@id="content"]/div/div/div/div/div[2]/a').each((el, index) => {
             if(index == 500) return false;
@@ -23,7 +15,6 @@ describe('My First Test', () => {
                 cy.xpath(`//*[text()[contains(.,'${name}')]]`).first().click();
                 // cy.wait(3000);
                 cy.go('back');
-
             })
         })
 
