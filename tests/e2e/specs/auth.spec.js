@@ -22,4 +22,13 @@ describe('Authentication tests', () => {
         cy.url().should('match', RegExp('/#/$'))
     })
 
+    it('Registers a new user', () => {
+        cy.visit('/#/register');
+        cy.get('#name').clear().type(Math.random().toString(36).substr(2, 7));
+        cy.get('#email').clear().type(Math.random().toString(36).substr(2, 7) + '@email.com');
+        cy.get('#password').clear().type('password');
+        cy.get('#registerButton').click();
+        cy.url().should('match', RegExp('/#/$'))
+    })
+
 })

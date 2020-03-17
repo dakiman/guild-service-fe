@@ -2,8 +2,7 @@ import AuthService from "@/services/AuthService";
 
 const authenticated = next => {
     if (!AuthService.auth()) {
-        console.log('returning to login')
-        next('/login')
+        next('/login');
         return
     }
     next()
@@ -11,8 +10,7 @@ const authenticated = next => {
 
 const guest = next => {
     if (AuthService.auth()) {
-        console.log('returning to home')
-        next('/')
+        next('/');
         return
     }
     next()

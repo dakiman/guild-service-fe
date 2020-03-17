@@ -1,9 +1,20 @@
 <template>
-    <div class="login">
+    <div class="register">
         <b-container>
             <b-row>
                 <b-col offset="4" md="4" class="p-4 bg-dark">
                     <b-form>
+                        <b-form-group
+                            label="Name"
+                            label-for="name"
+                        >
+                            <b-form-input
+                                v-model="form.name"
+                                id="name"
+                                required
+                                placeholder="Name"
+                            ></b-form-input>
+                        </b-form-group>
                         <b-form-group
                             label="Email"
                             label-for="email"
@@ -30,12 +41,12 @@
                         </b-form-group>
                         <b-form-group>
                             <b-button
-                                id="loginButton"
-                                @click="login"
+                                id="registerButton"
+                                @click="register"
                                 block
                                 type="button"
                                 variant="primary">
-                                Login
+                                Register
                             </b-button>
                         </b-form-group>
                     </b-form>
@@ -47,22 +58,22 @@
 
 <script>
     export default {
-        name: 'Login',
+        name: 'Register',
 
         data() {
             return {
                 form: {
                     email: 'daki@daki.com',
-                    password: 'password'
+                    password: 'password',
+                    name: 'name'
                 }
             }
         },
 
         methods: {
-            login() {
-                this.$store.dispatch('auth/login', {email: this.form.email, password: this.form.password})
+            register() {
+                this.$store.dispatch('auth/register', {email: this.form.email, password: this.form.password, name: this.form.name})
                     .then(() => this.$router.push('/'))
-                    // .catch(e => console.log('Error!', e))
             }
         }
     }

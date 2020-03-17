@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import VueRouter from 'vue-router'
 import SingleGuild from '../views/SingleGuild'
 import Home from '../views/Home'
@@ -6,9 +5,9 @@ import CharacterSearch from '../views/CharacterSearch'
 import SingleCharacter from '@/views/SingleCharacter'
 import Login from "@/views/Login";
 import Profile from "@/views/Profile";
+import Register from "@/views/Register";
 import {authenticated, guest} from '@/router/middleware';
 
-Vue.use(VueRouter)
 
 const routes = [
     {
@@ -47,6 +46,12 @@ const routes = [
         name: 'profile',
         component: Profile,
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register,
+        meta: { guest: true }
     },
 
 ]

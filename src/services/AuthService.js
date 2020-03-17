@@ -4,16 +4,9 @@ const AuthService = {
 
     login(email, password) {
         return axios.post('login', {email, password}).then(
-            res => {
-                let token = res.data.accessToken;
-                let user = res.data.user;
-
-                localStorage.setItem('token', token);
-                localStorage.setItem('user', JSON.stringify(user));
-
-                axios.defaults.headers.common.Authorization = 'Bearer ' + token;
-
-                return Promise.resolve(user);
+            response => {
+                this.persistUserFromResponse(response);
+                return Promise.resolve(response.data.user);
             }
         );
     },
@@ -24,14 +17,19 @@ const AuthService = {
         return axios.post('logout');
     },
 
-    register() {
-
+    register(email, password, name) {
+        return axios.post('register', {email, password, name}).then(
+            response => {
+                this.persistUserFromResponse(response);
+                return Promise.resolve(response);
+            }
+        )
     },
 
     user() {
         return axios.get('user').then(
-            res => {
-                let user = res.data.user;
+            response => {
+                let user = response.data.user;
                 localStorage.setItem('user', JSON.stringify(user));
                 return Promise.resolve(user)
             }
@@ -40,6 +38,16 @@ const AuthService = {
 
     auth() {
         return !!localStorage.getItem('token') && !!localStorage.getItem('user');
+    },
+
+    persistUserFromResponse(response) {
+        let token = response.data.accessToken;
+        let user = response.data.user;
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        axios.defaults.headers.common.Authorization = 'Bearer ' + token;
     }
 
 }
