@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <b-form @submit="getGuild">
+                    <b-form>
                         <b-form-group
                                 label="Realm"
                                 label-for="realm">
@@ -24,15 +24,17 @@
                                 @change="region => this.form.region = region"/>
                         <b-form-group>
                             <b-button
+                                    id="findGuildButton"
                                     block
-                                    type="submit"
+                                    @click="getGuild"
+                                    type="button"
                                     variant="primary">
-                                <div v-if="!loading">Find guild</div>
-                                <div v-else>
+                                <template v-if="!loading">Find guild</template>
+                                <template v-else>
                                     <b-spinner
                                             variant="primary"
                                             key="primary"/>
-                                </div>
+                                </template>
                             </b-button>
                         </b-form-group>
                     </b-form>
@@ -56,6 +58,8 @@
                             Achievement Points: {{ guild.achievementPoints }} <br>
                             Created at: {{ guildCreationDate }}
                             <b-button class="mt-2 p-1"
+                                      id="seeMoreGuildButton"
+                                      type="button"
                                       :to="{name: 'singleGuild', params: { region: form.region, realm: form.realm, name: form.guildName }}"
                                       :variant="factionColor"
                                       block>
