@@ -35,7 +35,7 @@
                     <template v-else>
                         <b-nav-item  to="/login">Login</b-nav-item>
                         <b-nav-item  to="/register">Register</b-nav-item>
-                    </template v-else>
+                    </template>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
