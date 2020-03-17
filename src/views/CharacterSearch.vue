@@ -3,37 +3,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <b-form @submit="getCharacter">
+                    <b-form >
                         <b-form-group label="Realm" label-for="realm">
                             <b-form-input
-                                    id="realm"
-                                    v-model="form.realm"/>
+                                id="realm"
+                                v-model="form.realm"/>
                         </b-form-group>
                         <b-form-group label="Character" label-for="character">
                             <b-form-input
-                                    id="character"
-                                    v-model="form.character"/>
+                                id="character"
+                                v-model="form.character"/>
                         </b-form-group>
                         <region-dropdown
-                                :defaultRegion="this.form.region"
-                                @change="region => this.form.region = region"/>
+                            :defaultRegion="this.form.region"
+                            @change="region => this.form.region = region"/>
                         <b-form-group>
                             <b-button
+                                    id="findCharacterButton"
                                     block
-                                    type="submit"
+                                    type="button"
+                                    @click="getCharacter"
                                     variant="primary">
-                                <div v-if="!loading">Find Character</div>
-                                <div v-else>
+                                <template v-if="!loading">Find Character</template>
+                                <template v-else>
                                     <b-spinner
-                                            variant="primary"
-                                            key="primary"/>
-                                </div>
+                                        variant="primary"
+                                        key="primary"/>
+                                </template>
                             </b-button>
                         </b-form-group>
                     </b-form>
                 </div>
                 <div class="col offset-md-1"
-                     v-if="character">
+                     v-if="character"
+                     id="characterContainer">
                     <b-card :variant="factionColor" no-body class="overflow-hidden" style="max-width: 540px;">
                         <b-row no-gutters>
                             <b-col md="3">
@@ -56,7 +59,9 @@
                         <b-row>
                             <b-col>
                                 <b-button
-                                        :to="{name: 'singleCharacter', params: { region: form.region, realm: form.realm, name: form.character }}">
+                                    id="seeMoreCharacterButton"
+                                    type="button"
+                                    :to="{name: 'singleCharacter', params: { region: form.region, realm: form.realm, name: form.character }}">
                                     See more
                                 </b-button>
                             </b-col>
@@ -71,13 +76,13 @@
 <script>
     import CharacterService from '../services/CharacterService'
     import RegionDropdown from '@/components/RegionDropdown'
-    import { getClass, getClassColor } from '@/modules/staticData'
+    import {getClass, getClassColor} from '@/modules/staticData'
 
     export default {
         name: 'CharacterSearch',
-        components: { RegionDropdown },
+        components: {RegionDropdown},
 
-        data () {
+        data() {
             return {
                 form: {
                     region: 'EU',
@@ -102,17 +107,17 @@
         methods: {
             getClass,
             getClassColor,
-            getCharacter () {
+            getCharacter() {
                 this.character = null
                 this.loading = true
                 CharacterService.getCharacter(
-                  this.form.realm,
-                  this.form.character,
-                  this.form.region
+                    this.form.realm,
+                    this.form.character,
+                    this.form.region
                 )
-                  .then(({ data }) => this.character = data.character)
-                  .catch(e => console.log('Error happened', e))
-                  .finally(() => this.loading = false)
+                    .then(({data}) => this.character = data.character)
+                    .catch(e => console.log('Error happened', e))
+                    .finally(() => this.loading = false)
             },
         }
     }

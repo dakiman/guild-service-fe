@@ -30,14 +30,14 @@
                         </b-form-group>
                         <b-form-group>
                             <b-button
+                                id="loginButton"
                                 @click="login"
                                 block
-                                type="submit"
+                                type="button"
                                 variant="primary">
                                 Login
                             </b-button>
                         </b-form-group>
-
                     </b-form>
                 </b-col>
             </b-row>
@@ -46,8 +46,6 @@
 </template>
 
 <script>
-    import AuthService from "@/services/AuthService";
-
     export default {
         name: 'Login',
 

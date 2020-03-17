@@ -10,23 +10,29 @@ export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({ commit }, {email, password}) {
+        login({commit}, {email, password}) {
             return AuthService.login(email, password).then(
-                res => {
-                    commit('loginSuccess', res.data.user);
+                user => {
+                    commit('loginSuccess', user);
                     return Promise.resolve();
-                },
-                error => {
-                    commit('loginFailure');
-                    return Promise.reject(error);
                 }
             );
         },
-        logout({ commit }) {
-            AuthService.logout();
-            commit('logout');
+        getUser({commit}) {
+            return AuthService.user().then(
+                user => {
+                    commit('userRetrieved', user);
+                    return Promise.resolve();
+                }
+            )
         },
-        register({ commit }, user) {
+        logout({commit}) {
+            AuthService.logout().then(
+                () => commit('logout'),
+                () => commit('logout')
+            );
+        },
+        register({commit}, user) {
             return AuthService.register(user).then(
                 response => {
                     commit('registerSuccess');
@@ -44,10 +50,6 @@ export const auth = {
             state.status.loggedIn = true;
             state.user = user;
         },
-        loginFailure(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
         logout(state) {
             state.status.loggedIn = false;
             state.user = null;
@@ -57,6 +59,9 @@ export const auth = {
         },
         registerFailure(state) {
             state.status.loggedIn = false;
+        },
+        userRetrieved(state, user) {
+            state.user = user;
         }
     },
     getters: {
