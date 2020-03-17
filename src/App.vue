@@ -26,8 +26,8 @@
 <!--                    </b-nav-item-dropdown>-->
                     <b-nav-item-dropdown v-if="user" right>
                         <!-- Using 'button-content' slot -->
-                        <template v-slot:button-content>
-                            <em>{{ user.name }}</em>
+                        <template  v-slot:button-content>
+                            <em id="userDropdown">{{ user.name }}</em>
                         </template>
                         <b-dropdown-item to="/profile">Profile</b-dropdown-item>
                         <b-dropdown-item @click="logout">Logout</b-dropdown-item>
