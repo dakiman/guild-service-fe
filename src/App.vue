@@ -32,7 +32,10 @@
                         <b-dropdown-item to="/profile">Profile</b-dropdown-item>
                         <b-dropdown-item @click="logout">Logout</b-dropdown-item>
                     </b-nav-item-dropdown>
-                    <b-nav-item v-else to="/login">Login</b-nav-item>
+                    <template v-else>
+                        <b-nav-item  to="/login">Login</b-nav-item>
+                        <b-nav-item  to="/register">Register</b-nav-item>
+                    </templatev-else>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
