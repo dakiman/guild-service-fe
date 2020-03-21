@@ -7,7 +7,7 @@ import Login from "@/views/Login";
 import Profile from "@/views/Profile";
 import Register from "@/views/Register";
 import {authenticated, guest} from '@/router/middleware';
-
+import BlizzardOauth from "@/views/BlizzardOauth";
 
 const routes = [
     {
@@ -53,10 +53,23 @@ const routes = [
         component: Register,
         meta: { guest: true }
     },
+    {
+        path: '/blizzard-oauth',
+        name: 'blizzardOauth',
+        component: BlizzardOauth,
+        meta: {requiresAuth: true}
+    }/*,
+    {
+        path: '*',
+        name: 'notFound',
+        component: NotFound
+    },
+*/
 
 ]
 
 const router = new VueRouter({
+    mode: 'history',
     routes
 })
 
