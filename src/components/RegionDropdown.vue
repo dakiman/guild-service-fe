@@ -2,11 +2,12 @@
     <b-form-group
             label="Region"
             label-for="region">
+        <!--$event is the value for some reason-->
         <b-form-select
                 id="region"
                 :options="regions"
                 :value="defaultRegion"
-                @change="$emit('change', $event)"/>
+                @change="$emit('change', $event.toLowerCase())"/>
     </b-form-group>
 </template>
 

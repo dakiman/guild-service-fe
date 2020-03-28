@@ -18,7 +18,7 @@ describe('Character lookup tests', () => {
         cy.get('#region').select('EU');
         cy.get('#findGuildButton').click();
         cy.get('#seeMoreGuildButton').click();
-        cy.url().should('match', RegExp('/guilds/EU/the%20maelstrom/starlight$'))
+        cy.url().should('match', RegExp('/guilds/eu/the%20maelstrom/starlight$'))
     })
 
 })

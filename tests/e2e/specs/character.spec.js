@@ -18,7 +18,7 @@ describe('Character lookup tests', () => {
         cy.get('#region').select('EU');
         cy.get('#findCharacterButton').click();
         cy.get('#seeMoreCharacterButton').click();
-        cy.url().should('match', RegExp('/characters/EU/the%20maelstrom/sernaos$'))
+        cy.url().should('match', RegExp('/characters/eu/the%20maelstrom/sernaos$'))
     })
 
 })
