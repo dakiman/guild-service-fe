@@ -1,14 +1,10 @@
 <template>
-    <b-form-group
-            label="Region"
-            label-for="region">
-        <!--$event is the value for some reason-->
-        <b-form-select
-                id="region"
-                :options="regions"
-                :value="defaultRegion"
-                @change="$emit('change', $event.toLowerCase())"/>
-    </b-form-group>
+    <!--$event is the value for some reason-->
+    <b-form-select
+        id="region"
+        :options="regions"
+        :value="defaultRegion"
+        @change="$emit('change', $event.toLowerCase())"/>
 </template>
 
 <script>
@@ -21,9 +17,9 @@
                 required: false,
             }
         },
-        data () {
+        data() {
             return {
-                regions: ['EU', 'US', 'CH', 'AU']
+                regions: [{value: null, text: 'Region'}, 'EU', 'US', 'CH', 'AU']
             }
         },
     }

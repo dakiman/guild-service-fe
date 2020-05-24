@@ -1,6 +1,10 @@
 <template>
     <div class="blizzardOauth">
-        Oauthed!
+        Your account details have been retrieved...
+        <br>
+        Syncing with our database...
+        <br>
+        <b-spinner label="Spinning"></b-spinner>
     </div>
 </template>
 
@@ -17,10 +21,10 @@
         methods: {
             authorize() {
                 let code = this.$route.query.code;
-                let locale = this.$route.query.locale;
-                let redirectUri = process.env.VUE_APP_REDIRECT_URL + '?locale=' + locale;
+                let region = this.$route.query.locale;
+                let redirectUri = process.env.VUE_APP_REDIRECT_URL + '?locale=' + region;
 
-                axios.post('/blizzard-oauth?locale=' + locale, {code, redirectUri}).then(
+                axios.post(`/${region}/blizzard-oauth`, {code, redirectUri}).then(
                     res => {
                         this.$router.push('/profile');
                     }

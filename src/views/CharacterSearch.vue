@@ -85,12 +85,12 @@
         data() {
             return {
                 form: {
-                    region: 'EU',
+                    region: null,
                     character: 'sernaos',
                     realm: 'the maelstrom'
                 },
                 character: null,
-                regions: ['EU', 'US', 'CH', 'AU'],
+                // regions: ['EU', 'US', 'CH', 'AU'],
                 loading: false,
             }
         },
