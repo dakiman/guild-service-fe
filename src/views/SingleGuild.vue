@@ -2,7 +2,7 @@
     <div class="guildSearch">
         <div class="container">
             <div v-if="guild">
-                <RosterList :roster="guild.roster"/>
+                <RosterList :roster="guild.roster.members" :region="this.$route.params.region"/>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
             getGuild () {
                 this.guild = null
                 GuildService.getGuild(this.$route.params.realm, this.$route.params.name, this.$route.params.region)
-                  .then(({ data }) => this.guild = data.guild)
+                  .then(({ data }) => this.guild = data.guild.guild_data)
                   .catch((e) => console.log('Error happened', e))
             }
         }
