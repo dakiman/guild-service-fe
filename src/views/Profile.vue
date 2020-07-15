@@ -62,7 +62,12 @@
                                             <{{character.character_data.guild.name}}>
                                         </router-link>
                                         <span class="float-right">
-                                            LF Guild <b-form-checkbox class="d-inline" switch/>
+                                            LF Guild
+                                            <b-form-checkbox
+                                                :checked="character.recruitment"
+                                                @change="toggleRecruitment(character)"
+                                                class="d-inline"
+                                                switch/>
                                         </span>
                                     </div>
                                 </b-list-group-item>
@@ -79,6 +84,7 @@
     import {mapGetters} from "vuex";
     import RegionDropdown from "@/components/RegionDropdown";
     import {getClassColor} from '@/modules/staticData'
+    import CharacterService from "@/services/CharacterService";
 
     export default {
         name: 'profile',
@@ -92,6 +98,12 @@
 
         methods: {
             getClassColor,
+            toggleRecruitment(character) {
+                CharacterService.toggleRecruitment(character.id)
+                .then(res => {
+                    character.recruitment = !character.recruitment;
+                })
+            }
         },
 
         computed: {
