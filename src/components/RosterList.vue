@@ -1,16 +1,16 @@
 <template>
     <div class="rosterList">
         <b-form-group
-                label="Filter roster"
-                label-for="filter-roster"
+            label="Filter roster"
+            label-for="filter-roster"
         >
             <b-form-input v-model="filterCriteria" v-on:keyup="filterRoster" id="filter-roster"/>
         </b-form-group>
         <b-list-group>
             <b-list-group-item
-                    v-for="member in filteredRoster"
-                    :key="member.character.name"
-                    :to="{name: 'singleCharacter', params: { region: region, realm: member.character.realm.slug, name: member.character.name }}"
+                v-for="member in filteredRoster"
+                :key="member.character.name"
+                :to="{name: 'singleCharacter', params: { region: region, realm: member.character.realm.slug, name: member.character.name }}"
             >
                 <span class="float-left" :style="{ color: getClassColor(member.character.playable_class.id) }">{{member.character.name}}</span>
                 <span class="float-left">, {{member.character.level}} </span>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import { getClassColor } from '@/modules/staticData'
+    import {getClassColor} from '@/modules/staticData'
 
     export default {
         name: 'RosterList',
@@ -29,7 +29,7 @@
             roster: Array,
             region: String,
         },
-        data () {
+        data() {
             return {
                 filteredRoster: this.roster,
                 filterCriteria: null,
@@ -37,11 +37,11 @@
         },
         methods: {
             getClassColor,
-            filterRoster () {
+            filterRoster() {
                 this.filteredRoster = this.roster.filter(member => {
                     return member.character.name
-                      .toLowerCase()
-                      .includes(this.filterCriteria.toLowerCase())
+                        .toLowerCase()
+                        .includes(this.filterCriteria.toLowerCase())
                 })
             }
         }
