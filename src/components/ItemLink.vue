@@ -4,11 +4,11 @@
         <div >
             <a href="#"
                :data-wowhead="getWowheadLink(item)"
-               :class="'q' + itemQualityToId(item.quality)">
+               :class="'q' + itemQualityToId(item.quality.type)">
             </a>
         </div>
         <div class="mx-auto">
-            <span :style="{ color: getItemQualityColorHex(item.quality) }">{{item.itemLevel}}</span>
+            <span :style="{ color: getItemQualityColorHex(item.quality.type) }">{{item.level.value}}</span>
         </div>
     </div>
 </template>
@@ -28,8 +28,8 @@
             itemQualityToId,
             getItemQualityColorHex,
             getWowheadLink(item) {
-                let itemLink = 'item=' + item.id;
-                itemLink += '&ilvl=' + item.itemLevel
+                let itemLink = 'item=' + item.item.id;
+                itemLink += '&ilvl=' + item.level.value
 
                 if(item.sockets) {
                     itemLink += '&gems='

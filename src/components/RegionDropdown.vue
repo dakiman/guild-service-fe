@@ -1,28 +1,34 @@
 <template>
-    <b-form-group
-            label="Region"
-            label-for="region">
-        <b-form-select
-                id="region"
-                :options="regions"
-                :value="defaultRegion"
-                @change="$emit('change', $event)"/>
-    </b-form-group>
+    <!--$event is the value for some reason-->
+    <!--    TODO Fix region default display -->
+    <b-form-select
+        id="region"
+        v-model="dropdownSelection"
+        :options="regions"
+        @change="$emit('change', $event.toLowerCase())"/>
 </template>
 
 <script>
     export default {
         name: 'RegionDropdown',
+
         props: {
-            defaultRegion: {
+            selected: {
                 type: String,
-                default: '',
-                required: false,
+                default: null,
             }
         },
-        data () {
+
+        data() {
             return {
-                regions: ['EU', 'US', 'CH', 'AU']
+                dropdownSelection: this.selected,
+                regions: [
+                    {value: null, text: 'Region'},
+                    { value: 'eu', text: 'EU' },
+                    { value: 'us', text: 'US' },
+                    { value: 'ch', text: 'CH' },
+                    { value: 'au', text: 'AU' },
+                ]
             }
         },
     }

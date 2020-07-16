@@ -7,6 +7,7 @@ import '@/assets/custom.scss'
 import '@/modules/axiosConfig.js'
 import axios from "axios";
 import VueRouter from "vue-router";
+import './modules/VueFilters.js'
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)

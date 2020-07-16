@@ -50,13 +50,13 @@
                         <template v-slot:header>
                             <span class="float-left h4">{{ guild.name }}</span>
                             <img class="img-fluid ml-1" :src="factionLogo" alt="">
-                            <span class="float-right">{{ guild.realm }}</span>
+                            <span class="float-right">{{ guild.realm.name }}</span>
                         </template>
 
                         <div>
-                            Members: {{ guild.memberCount }} <br>
-                            Achievement Points: {{ guild.achievementPoints }} <br>
-                            Created at: {{ guildCreationDate }}
+                            Members: {{ guild.member_count }} <br>
+                            Achievement Points: {{ guild.achievement_points }} <br>
+                            Created at: {{ new Date(guild.created_timestamp).toDateString() }}
                             <b-button class="mt-2 p-1"
                                       id="seeMoreGuildButton"
                                       type="button"
@@ -95,7 +95,7 @@
 
         computed: {
             factionColor: function () {
-                if (this.guild.faction.toLowerCase().includes('alliance')) {
+                if (this.guild.faction.name.toLowerCase().includes('alliance')) {
                     return 'alliance'
                 }
                 return 'horde'
@@ -113,7 +113,7 @@
                 this.guild = null
                 this.loading = true
                 GuildService.getGuild(this.form.realm, this.form.guildName, this.form.region)
-                  .then(({ data }) => this.guild = data.guild)
+                  .then(({ data }) => this.guild = data.guild.guild_data)
                   .catch((e) => console.log('Error happened', e))
                   .finally(() => this.loading = false)
             },
