@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-5 offset-md-1 justify-content-center">
-                    <div class="row" v-if="!user.blizzard_id">
+                    <div class="row" v-if="!user.bnet_id">
                         <region-dropdown
                             @change="region => this.region = region"/>
                         <a :href="oauthUrl">Login with Blizzard</a>
@@ -13,9 +13,9 @@
                         <div class="col p-0">
                             <b-card
                                 header="Battle.net Details"
-                                :footer="'Last sync: ' + user.battle_net_sync_at"
+                                :footer="'Last sync: ' + user.bnet_sync_at"
                                 footer-tag="footer"
-                                :title="user.battle_tag"
+                                :title="user.bnet_tag + ' (' + user.bnet_region.toUpperCase() + ')'"
                             >
                                 <b-card-text>
 
@@ -23,13 +23,13 @@
                                 <div class="row">
                                     <div class="col">
                                         <region-dropdown
+                                            :selected="user.bnet_region"
                                             @change="region => this.region = region"/>
                                     </div>
                                     <div class="col">
                                         <b-button
                                             :href="oauthUrl"
-                                            variant="primary"
-                                        >
+                                            variant="primary">
                                             Re-Sync data
                                         </b-button>
                                     </div>
@@ -43,6 +43,7 @@
                                 <b-list-group-item
                                     class="mt-1"
                                     v-for="character in user.characters"
+                                    :key="character.id"
                                 >
                                     <router-link
                                         class="float-left"
@@ -50,7 +51,7 @@
                                         :style="{ color: getClassColor(character.character_data.character_class.id) }">
                                         {{character.character_data.name }}
                                     </router-link>
-                                    <span class="float-left ml-2">{{ character.character_data.level }}</span>
+                                    <span class="float-left ml-2">({{ character.character_data.level }})</span>
                                     <span class="float-right">
                                         {{character.character_data.realm.name}}
                                     </span>
@@ -100,9 +101,9 @@
             getClassColor,
             toggleRecruitment(character) {
                 CharacterService.toggleRecruitment(character.id)
-                .then(res => {
-                    character.recruitment = !character.recruitment;
-                })
+                    .then(res => {
+                        character.recruitment = !character.recruitment;
+                    })
             }
         },
 

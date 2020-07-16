@@ -3,7 +3,7 @@
     <!--    TODO Fix region default display -->
     <b-form-select
         id="region"
-        v-model="selected"
+        v-model="dropdownSelection"
         :options="regions"
         @change="$emit('change', $event.toLowerCase())"/>
 </template>
@@ -11,15 +11,23 @@
 <script>
     export default {
         name: 'RegionDropdown',
+
+        props: {
+            selected: {
+                type: String,
+                default: null,
+            }
+        },
+
         data() {
             return {
-                selected: null,
+                dropdownSelection: this.selected,
                 regions: [
                     {value: null, text: 'Region'},
-                    { value: 'EU', text: 'EU' },
-                    { value: 'US', text: 'US' },
-                    { value: 'CH', text: 'CH' },
-                    { value: 'AU', text: 'AU' },
+                    { value: 'eu', text: 'EU' },
+                    { value: 'us', text: 'US' },
+                    { value: 'ch', text: 'CH' },
+                    { value: 'au', text: 'AU' },
                 ]
             }
         },
