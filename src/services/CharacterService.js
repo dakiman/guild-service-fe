@@ -14,6 +14,10 @@ const CharacterService = {
         return axios.get(`character/${region}/${realm}/${character}/raiderio`)
     },
 
+    getPopularCharacters () {
+        return axios.get('character/popular')
+    }
+
 }
 
 export default CharacterService
