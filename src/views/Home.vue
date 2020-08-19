@@ -66,6 +66,7 @@
                         opacity="1"
                         spinner-small
                         spinner-variant="primary"
+                        bg-color="primary"
                     >
                         <b-card
                             bg-variant="primary"
@@ -111,7 +112,7 @@
                             no-body
                         >
                             <template v-slot:header>
-                                <h4 class="mb-0">Most Viewed Characters</h4>
+                                <h4 class="mb-0">Most Viewed Guilds</h4>
                             </template>
 
                             <b-list-group flush>
@@ -169,7 +170,7 @@
                             no-body
                         >
                             <template v-slot:header>
-                                <h4 class="mb-0">Most Viewed</h4>
+                                <h4 class="mb-0">Most Viewed Characters</h4>
                             </template>
 
                             <b-list-group flush>
@@ -216,8 +217,8 @@
                 })
             CharacterService.getPopularCharacters()
                 .then(({data}) => {
-                    this.charactersLoading = false
                     this.popularCharacters = data;
+                    this.charactersLoading = false
                 })
         }
     }
