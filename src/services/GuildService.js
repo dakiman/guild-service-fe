@@ -6,6 +6,10 @@ const GuildService = {
         return axios.get(`guild/${region}/${realm}/${guild}`)
     },
 
+    getPopularGuilds () {
+        return axios.get('guild/popular')
+    }
+
 }
 
 export default GuildService

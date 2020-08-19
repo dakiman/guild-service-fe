@@ -1,6 +1,5 @@
 <template>
     <!--$event is the value for some reason-->
-    <!--    TODO Fix region default display -->
     <b-form-select
         id="region"
         v-model="dropdownSelection"

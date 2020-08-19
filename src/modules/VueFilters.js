@@ -1,14 +1,12 @@
 import Vue from 'vue'
 
 Vue.filter('deslug', (value) => {
-    if(!value) return ''
+    if (!value) return ''
 
     value = value
-        .replace('-', ' ')
-        .split(' ')
-        .reduce((result, word) => {
-            return result += word.charAt(0).toUpperCase() + word.slice(1) + ' ';
-        }, '')
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 
     return value;
 })
