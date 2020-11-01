@@ -3,26 +3,26 @@
     <b-container v-if="character">
       <b-row class="bg-primary">
         <b-col md="3" class="p-3">
-          <img class :src="character.media.bust_url" alt />
+          <img class :src="character.blizzard_data.media.inset" alt />
         </b-col>
         <b-col md="9">
           <div class="float-md-left pt-3">
             <b-row>
               <b-col>
-                <span style="font-size: 24px;">{{character.name}}</span>
-                <div v-if="character.guild">
-                  <span><{{character.guild.name}}></span>
+                <span style="font-size: 24px;">{{character.name | deslug }}</span>
+                <div v-if="character.blizzard_data.basic.guild">
+                  <span><{{character.blizzard_data.basic.guild.name | deslug }}></span>
                 </div>
-                <span style="font-size: 18px;" class="text-light">{{character.realm.name}}</span>
+                <span style="font-size: 18px;" class="text-light">{{character.realm | deslug}}</span>
               </b-col>
             </b-row>
             <b-row class>
               <b-col>
-                <span>Level {{character.level}}</span>
+                <span>Level {{character.blizzard_data.basic.level}}</span>
                 &nbsp
                 <span
-                  :style="{ color: getClassColor(character.character_class.id)}"
-                >{{character.character_class.name}}</span>
+                  :style="{ color: getClassColor(character.blizzard_data.basic.class)}"
+                >{{getClass(character.blizzard_data.basic.class)}}</span>
               </b-col>
             </b-row>
           </div>
@@ -38,10 +38,10 @@
                   pill
                   variant="primary"
                   class="float-right"
-                >iLvl: {{character.average_item_level}} ({{character.equipped_item_level}})</b-badge>
+                >iLvl: {{character.blizzard_data.basic.average_item_level}} ({{character.blizzard_data.basic.equipped_item_level}})</b-badge>
               </template>
 
-              <div class="d-inline" v-for="item in character.equipment.equipped_items" :key="item.id">
+              <div class="d-inline" v-for="item in character.blizzard_data.equipment" :key="item.id">
                 <item-link :item="item" />
               </div>
             </b-card>
@@ -84,7 +84,7 @@ export default {
         this.$route.params.name,
         this.$route.params.region
       )
-        .then(({ data }) => (this.character = data.character.character_data))
+        .then(({ data }) => (this.character = data.character))
         .catch(e => console.log("Error happened", e))
         .finally(() => $WowheadPower.refreshLinks());
     },

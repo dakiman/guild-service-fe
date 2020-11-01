@@ -42,15 +42,15 @@
                             <b-col md="3">
                                 <img class="m-2 mt-3"
                                      style="border-radius: 50%;"
-                                     :src="character.media.avatar_url"
+                                     :src="character.blizzard_data.media.avatar"
                                      alt="">
                             </b-col>
                             <b-col md="9">
-                                <b-card-body :title="character.name" :sub-title="character.realm.name">
+                                <b-card-body :title="character.name" :sub-title="character.realm">
                                     <b-card-text>
                                         Level {{character.level}}
-                                        <span :style="{ color: getClassColor(character.character_class.id) }">
-                                            {{ character.character_class.name }}
+                                        <span :style="{ color: getClassColor(character.blizzard_data.basic.class) }">
+                                            {{ getClass(character.blizzard_data.basic.class) }}
                                         </span>
                                     </b-card-text>
                                 </b-card-body>
@@ -97,7 +97,7 @@
 
         computed: {
             factionColor: function () {
-                if (this.character.faction.name.toLowerCase().includes('alliance')) {
+                if (this.character.blizzard_data.basic.faction.toLowerCase().includes('alliance')) {
                     return 'alliance'
                 }
                 return 'horde'
@@ -115,7 +115,7 @@
                     this.form.character,
                     this.form.region
                 )
-                    .then(({data}) => this.character = data.character.character_data)
+                    .then(({data}) => this.character = data.character)
                     .catch(e => console.log('Error happened', e))
                     .finally(() => this.loading = false)
             },
