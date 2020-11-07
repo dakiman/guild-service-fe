@@ -9,12 +9,12 @@
         <b-list-group>
             <b-list-group-item
                 v-for="member in filteredRoster"
-                :key="member.character.name"
-                :to="{name: 'singleCharacter', params: { region: region, realm: member.character.realm.slug, name: member.character.name }}"
+                :key="member.name"
+                :to="{name: 'singleCharacter', params: { region: region, realm: member.realm, name: member.name }}"
             >
-                <span class="float-left" :style="{ color: getClassColor(member.character.playable_class.id) }">{{member.character.name}}</span>
-                <span class="float-left"> ({{member.character.level}})</span>
-                <span class="float-right"> {{member.character.realm.slug | deslug }} </span>
+                <span class="float-left" :style="{ color: getClassColor(member.class) }">{{member.name}}</span>
+                <span class="float-left"> ({{member.level}})</span>
+                <span class="float-right"> {{member.realm | deslug }} </span>
             </b-list-group-item>
         </b-list-group>
     </div>
@@ -39,7 +39,7 @@
             getClassColor,
             filterRoster() {
                 this.filteredRoster = this.roster.filter(member => {
-                    return member.character.name
+                    return member.name
                         .toLowerCase()
                         .includes(this.filterCriteria.toLowerCase())
                 })

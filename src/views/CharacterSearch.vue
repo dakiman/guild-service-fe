@@ -42,15 +42,15 @@
                             <b-col md="3">
                                 <img class="m-2 mt-3"
                                      style="border-radius: 50%;"
-                                     :src="character.blizzard_data.media.avatar"
+                                     :src="character.media.avatar"
                                      alt="">
                             </b-col>
                             <b-col md="9">
                                 <b-card-body :title="character.name" :sub-title="character.realm">
                                     <b-card-text>
                                         Level {{character.level}}
-                                        <span :style="{ color: getClassColor(character.blizzard_data.basic.class) }">
-                                            {{ getClass(character.blizzard_data.basic.class) }}
+                                        <span :style="{ color: getClassColor(character.basic.class) }">
+                                            {{ getClass(character.basic.class) }}
                                         </span>
                                     </b-card-text>
                                 </b-card-body>
@@ -97,7 +97,7 @@
 
         computed: {
             factionColor: function () {
-                if (this.character.blizzard_data.basic.faction.toLowerCase().includes('alliance')) {
+                if (this.character.basic.faction.toLowerCase().includes('alliance')) {
                     return 'alliance'
                 }
                 return 'horde'

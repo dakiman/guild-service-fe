@@ -48,19 +48,19 @@
                                     <router-link
                                         class="float-left"
                                         :to="{ name: 'singleCharacter', params: { region: character.region, realm: character.realm, name: character.name } }"
-                                        :style="{ color: getClassColor(character.blizzard_data.basic.class) }">
+                                        :style="{ color: getClassColor(character.basic.class) }">
                                         {{character.name | deslug }}
                                     </router-link>
-                                    <span class="float-left ml-2">({{ character.blizzard_data.basic.level }})</span>
+                                    <span class="float-left ml-2">({{ character.basic.level }})</span>
                                     <span class="float-right">
                                         {{character.realm | deslug }}
                                     </span>
                                     <br>
                                     <div style="min-height: 20px;">
                                         <router-link
-                                            class="float-left" v-if="character.blizzard_data.basic.guild"
-                                            :to="{name: 'singleGuild', params: { region: character.region, realm: character.blizzard_data.basic.guild.realm, name: character.blizzard_data.basic.guild.name }}">
-                                            <{{character.blizzard_data.basic.guild.name}}>
+                                            class="float-left" v-if="character.basic.guild"
+                                            :to="{name: 'singleGuild', params: { region: character.region, realm: character.basic.guild.realm, name: character.basic.guild.name }}">
+                                            <{{character.basic.guild.name}}>
                                         </router-link>
                                         <span class="float-right">
                                             LF Guild

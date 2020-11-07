@@ -66,6 +66,10 @@
         methods: {
             logout() {
                 this.$store.dispatch('auth/logout')
+                    .finally(() => {
+                        if (this.$router.currentRoute.name != 'home')
+                            this.$router.push({name: 'home'});
+                    })
             }
         }
     }

@@ -3,26 +3,26 @@
     <b-container v-if="character">
       <b-row class="bg-primary">
         <b-col md="3" class="p-3">
-          <img class :src="character.blizzard_data.media.inset" alt />
+          <img class :src="character.media.inset" alt />
         </b-col>
         <b-col md="9">
           <div class="float-md-left pt-3">
             <b-row>
               <b-col>
                 <span style="font-size: 24px;">{{character.name | deslug }}</span>
-                <div v-if="character.blizzard_data.basic.guild">
-                  <span><{{character.blizzard_data.basic.guild.name | deslug }}></span>
+                <div v-if="character.basic.guild">
+                  <span><{{character.basic.guild.name | deslug }}></span>
                 </div>
                 <span style="font-size: 18px;" class="text-light">{{character.realm | deslug}}</span>
               </b-col>
             </b-row>
             <b-row class>
               <b-col>
-                <span>Level {{character.blizzard_data.basic.level}}</span>
+                <span>Level {{character.basic.level}}</span>
                 &nbsp
                 <span
-                  :style="{ color: getClassColor(character.blizzard_data.basic.class)}"
-                >{{getClass(character.blizzard_data.basic.class)}}</span>
+                  :style="{ color: getClassColor(character.basic.class)}"
+                >{{getClass(character.basic.class)}}</span>
               </b-col>
             </b-row>
           </div>
@@ -38,10 +38,10 @@
                   pill
                   variant="primary"
                   class="float-right"
-                >iLvl: {{character.blizzard_data.basic.average_item_level}} ({{character.blizzard_data.basic.equipped_item_level}})</b-badge>
+                >iLvl: {{character.basic.average_item_level}} ({{character.basic.equipped_item_level}})</b-badge>
               </template>
 
-              <div class="d-inline" v-for="item in character.blizzard_data.equipment" :key="item.id">
+              <div class="d-inline" v-for="item in character.equipment" :key="item.id">
                 <item-link :item="item" />
               </div>
             </b-card>

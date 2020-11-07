@@ -4,7 +4,7 @@
             <div class="row" v-if="guild">
                 <div class="col-md-4 offset-md-1">
                     <div>
-                        <RosterList :roster="guild.roster.members" :region="this.$route.params.region"/>
+                        <RosterList :roster="guild.roster" :region="this.$route.params.region"/>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             getGuild() {
                 this.guild = null
                 GuildService.getGuild(this.$route.params.realm, this.$route.params.name, this.$route.params.region)
-                    .then(({data}) => this.guild = data.guild.guild_data)
+                    .then(({data}) => this.guild = data.guild)
                     .catch((e) => {
                         this.status = 'Guild retrieval failed. Try again and contact us if this persists.'
                         this.loading = false;
