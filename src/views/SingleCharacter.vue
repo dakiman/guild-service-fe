@@ -69,8 +69,9 @@
             };
         },
 
-        mounted() {
-            this.getCharacter();
+        async mounted() {
+            await this.getCharacter();
+            $WowheadPower.refreshLinks()
         },
 
         methods: {
@@ -80,13 +81,13 @@
             async getCharacter() {
                 this.character = null;
                 this.loading = true;
+
                 let res = await CharacterService.getCharacter(
                     this.$route.params.realm,
                     this.$route.params.name,
                     this.$route.params.region
                 )
                 this.character = res.data.character
-                $WowheadPower.refreshLinks()
             },
         }
     };

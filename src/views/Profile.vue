@@ -97,6 +97,10 @@
             }
         },
 
+        mounted() {
+            this.region = this.user.bnet_region || ''
+        },
+
         methods: {
             getClassColor,
             async toggleRecruitment(character) {
