@@ -109,13 +109,14 @@
         },
 
         methods: {
-            getGuild () {
+            async getGuild () {
                 this.guild = null
                 this.loading = true
-                GuildService.getGuild(this.form.realm, this.form.guildName, this.form.region)
-                  .then(({ data }) => this.guild = data.guild)
-                  .catch((e) => console.log('Error happened', e))
-                  .finally(() => this.loading = false)
+
+                let res = await GuildService.getGuild(this.form.realm, this.form.guildName, this.form.region)
+
+                this.guild = res.data.guild
+                this.loading = false
             },
         }
 

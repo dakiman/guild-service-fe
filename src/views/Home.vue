@@ -88,6 +88,7 @@
                             <b-list-group flush>
                                 <b-list-group-item
                                     v-for="guild in this.popularGuilds.recently_searched"
+                                    v-bind:key="guild._id"
                                     :to="{name: 'singleGuild', params: { region: guild.region, realm: guild.realm, name: guild.name }}"
                                     class="border bg-primary">
                                         <span class="float-left">
@@ -118,6 +119,7 @@
                             <b-list-group flush>
                                 <b-list-group-item
                                     v-for="guild in this.popularGuilds.most_popular"
+                                    v-bind:key="guild._id"
                                     :to="{name: 'singleGuild', params: { region: guild.region, realm: guild.realm, name: guild.name }}"
                                     class="border bg-primary">
                                         <span class="float-left">
@@ -152,6 +154,7 @@
                             <b-list-group flush>
                                 <b-list-group-item
                                     v-for="character in this.popularCharacters.recently_searched"
+                                    v-bind:key="character._id"
                                     :to="{name: 'singleCharacter', params: { region: character.region, realm: character.realm, name: character.name }}"
                                     class="border bg-primary">
                                 <span class="float-left">
@@ -176,6 +179,7 @@
                             <b-list-group flush>
                                 <b-list-group-item
                                     v-for="character in this.popularCharacters.most_popular"
+                                    v-bind:key="character._id"
                                     :to="{name: 'singleCharacter', params: { region: character.region, realm: character.realm, name: character.name }}"
                                     class="border bg-primary">
                                 <span class="float-left">
@@ -210,16 +214,21 @@
             }
         },
         mounted() {
-            GuildService.getPopularGuilds()
-                .then(({data}) => {
-                    this.popularGuilds = data;
-                    this.guildsLoading = false;
-                })
-            CharacterService.getPopularCharacters()
-                .then(({data}) => {
-                    this.popularCharacters = data;
-                    this.charactersLoading = false
-                })
+            //TODO Figure out how to make calls not have to wait on each other
+            this.getPopularGuilds()
+            this.getPopularCharacters()
+        },
+        methods: {
+            async getPopularGuilds() {
+                let guildsRes = await GuildService.getPopularGuilds()
+                this.popularGuilds = guildsRes.data;
+                this.guildsLoading = false;
+            },
+            async getPopularCharacters() {
+                let charactersRes = await CharacterService.getPopularCharacters()
+                this.popularCharacters = charactersRes.data;
+                this.charactersLoading = false
+            }
         }
     }
 </script>

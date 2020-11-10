@@ -37,15 +37,10 @@
         },
 
         methods: {
-            getGuild() {
+            async getGuild() {
                 this.guild = null
-                GuildService.getGuild(this.$route.params.realm, this.$route.params.name, this.$route.params.region)
-                    .then(({data}) => this.guild = data.guild)
-                    .catch((e) => {
-                        this.status = 'Guild retrieval failed. Try again and contact us if this persists.'
-                        this.loading = false;
-                        console.log('Error happened', e)
-                    })
+                let res = await GuildService.getGuild(this.$route.params.realm, this.$route.params.name, this.$route.params.region)
+                this.guild = res.data.guild
             }
         }
 

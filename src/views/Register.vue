@@ -71,9 +71,13 @@
         },
 
         methods: {
-            register() {
-                this.$store.dispatch('auth/register', {email: this.form.email, password: this.form.password, name: this.form.name})
-                    .then(() => this.$router.push('/'))
+            async register() {
+                await this.$store.dispatch('auth/register', {
+                    email: this.form.email,
+                    password: this.form.password,
+                    name: this.form.name
+                })
+                await this.$router.push('/')
             }
         }
     }

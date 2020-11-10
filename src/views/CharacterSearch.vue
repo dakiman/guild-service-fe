@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <b-form >
+                    <b-form>
                         <b-form-group label="Realm" label-for="realm">
                             <b-form-input
                                 id="realm"
@@ -19,11 +19,11 @@
                             @change="region => this.form.region = region"/>
                         <b-form-group>
                             <b-button
-                                    id="findCharacterButton"
-                                    block
-                                    type="button"
-                                    @click="getCharacter"
-                                    variant="primary">
+                                id="findCharacterButton"
+                                block
+                                type="button"
+                                @click="getCharacter"
+                                variant="primary">
                                 <template v-if="!loading">Find Character</template>
                                 <template v-else>
                                     <b-spinner
@@ -107,17 +107,18 @@
         methods: {
             getClass,
             getClassColor,
-            getCharacter() {
+            async getCharacter() {
                 this.character = null
                 this.loading = true
-                CharacterService.getCharacter(
+
+                let res = await CharacterService.getCharacter(
                     this.form.realm,
                     this.form.character,
                     this.form.region
                 )
-                    .then(({data}) => this.character = data.character)
-                    .catch(e => console.log('Error happened', e))
-                    .finally(() => this.loading = false)
+
+                this.character = res.data.character
+                this.loading = false
             },
         }
     }

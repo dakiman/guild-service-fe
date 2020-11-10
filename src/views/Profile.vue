@@ -99,11 +99,9 @@
 
         methods: {
             getClassColor,
-            toggleRecruitment(character) {
-                CharacterService.toggleRecruitment(character._id)
-                    .then(res => {
-                        character.recruitment = !character.recruitment;
-                    })
+            async toggleRecruitment(character) {
+                await CharacterService.toggleRecruitment(character._id)
+                character.recruitment = !character.recruitment;
             }
         },
 

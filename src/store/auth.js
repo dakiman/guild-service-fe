@@ -10,29 +10,27 @@ export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({commit}, {email, password}) {
+        async login({commit}, {email, password}) {
             return AuthService.login(email, password).then(
                 user => {
                     commit('loginSuccess', user);
-                    return Promise.resolve();
                 }
             );
         },
-        getUser({commit}) {
+        async getUser({commit}) {
             return AuthService.user().then(
                 user => {
                     commit('userRetrieved', user);
-                    return Promise.resolve();
                 }
             )
         },
-        logout({commit}) {
+        async logout({commit}) {
             AuthService.logout().then(
                 () => commit('logout'),
                 () => commit('logout')
             );
         },
-        register({commit}, { email, password, name }) {
+        async register({commit}, { email, password, name }) {
             return AuthService.register(email, password, name).then(
                 response => {
                     commit('registerSuccess', response.data.user);
