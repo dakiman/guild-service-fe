@@ -59,10 +59,9 @@
         },
 
         methods: {
-            login() {
-                this.$store.dispatch('auth/login', {email: this.form.email, password: this.form.password})
-                    .then(() => this.$router.push('/'))
-                    // .catch(e => console.log('Error!', e))
+            async login() {
+                await this.$store.dispatch('auth/login', {email: this.form.email, password: this.form.password})
+                await this.$router.push('/')
             }
         }
     }

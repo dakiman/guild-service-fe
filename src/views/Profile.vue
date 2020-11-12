@@ -43,24 +43,24 @@
                                 <b-list-group-item
                                     class="mt-1"
                                     v-for="character in user.characters"
-                                    :key="character.id"
+                                    :key="character._id"
                                 >
                                     <router-link
                                         class="float-left"
                                         :to="{ name: 'singleCharacter', params: { region: character.region, realm: character.realm, name: character.name } }"
-                                        :style="{ color: getClassColor(character.character_data.character_class.id) }">
-                                        {{character.character_data.name }}
+                                        :style="{ color: getClassColor(character.basic.class) }">
+                                        {{character.name | deslug }}
                                     </router-link>
-                                    <span class="float-left ml-2">({{ character.character_data.level }})</span>
+                                    <span class="float-left ml-2">({{ character.basic.level }})</span>
                                     <span class="float-right">
-                                        {{character.character_data.realm.name}}
+                                        {{character.realm | deslug }}
                                     </span>
                                     <br>
                                     <div style="min-height: 20px;">
                                         <router-link
-                                            class="float-left" v-if="character.character_data.guild"
-                                            :to="{name: 'singleGuild', params: { region: character.region, realm: character.character_data.guild.realm.slug, name: character.character_data.guild.name }}">
-                                            <{{character.character_data.guild.name}}>
+                                            class="float-left" v-if="character.basic.guild"
+                                            :to="{name: 'singleGuild', params: { region: character.region, realm: character.basic.guild.realm, name: character.basic.guild.name }}">
+                                            <{{character.basic.guild.name}}>
                                         </router-link>
                                         <span class="float-right">
                                             LF Guild
@@ -97,13 +97,15 @@
             }
         },
 
+        mounted() {
+            this.region = this.user.bnet_region || ''
+        },
+
         methods: {
             getClassColor,
-            toggleRecruitment(character) {
-                CharacterService.toggleRecruitment(character.id)
-                    .then(res => {
-                        character.recruitment = !character.recruitment;
-                    })
+            async toggleRecruitment(character) {
+                await CharacterService.toggleRecruitment(character._id)
+                character.recruitment = !character.recruitment;
             }
         },
 

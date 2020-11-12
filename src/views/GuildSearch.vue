@@ -50,13 +50,13 @@
                         <template v-slot:header>
                             <span class="float-left h4">{{ guild.name }}</span>
                             <img class="img-fluid ml-1" :src="factionLogo" alt="">
-                            <span class="float-right">{{ guild.realm.name }}</span>
+                            <span class="float-right">{{ guild.realm }}</span>
                         </template>
 
                         <div>
-                            Members: {{ guild.member_count }} <br>
-                            Achievement Points: {{ guild.achievement_points }} <br>
-                            Created at: {{ new Date(guild.created_timestamp).toDateString() }}
+                            Members: {{ guild.basic.member_count }} <br>
+                            Achievement Points: {{ guild.basic.achievement_points }} <br>
+                            Created at: {{ new Date(guild.basic.created_timestamp).toDateString() }}
                             <b-button class="mt-2 p-1"
                                       id="seeMoreGuildButton"
                                       type="button"
@@ -95,7 +95,7 @@
 
         computed: {
             factionColor: function () {
-                if (this.guild.faction.name.toLowerCase().includes('alliance')) {
+                if (this.guild.basic.faction.toLowerCase().includes('alliance')) {
                     return 'alliance'
                 }
                 return 'horde'
@@ -109,13 +109,14 @@
         },
 
         methods: {
-            getGuild () {
+            async getGuild () {
                 this.guild = null
                 this.loading = true
-                GuildService.getGuild(this.form.realm, this.form.guildName, this.form.region)
-                  .then(({ data }) => this.guild = data.guild.guild_data)
-                  .catch((e) => console.log('Error happened', e))
-                  .finally(() => this.loading = false)
+
+                let res = await GuildService.getGuild(this.form.realm, this.form.guildName, this.form.region)
+
+                this.guild = res.data.guild
+                this.loading = false
             },
         }
 

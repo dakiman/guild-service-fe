@@ -50,12 +50,14 @@
     import AuthService from "@/services/AuthService";
 
     export default {
-        mounted() {
+        async mounted() {
             if (AuthService.auth()) {
-                this.$store.dispatch('auth/getUser')
-                    .catch(() => {
-                        AuthService.logout().then(() => this.$router.push('/'));
-                    });
+                try {
+                    await this.$store.dispatch('auth/getUser')
+                } catch (e) {
+                    await this.$store.dispatch('auth/logout')
+                    await this.redirectHome();
+                }
             }
         },
 
@@ -64,8 +66,13 @@
         },
 
         methods: {
-            logout() {
-                this.$store.dispatch('auth/logout')
+            async logout() {
+                await this.$store.dispatch('auth/logout')
+                await this.redirectHome();
+            },
+            async redirectHome() {
+                if (this.$router.currentRoute.name != 'home')
+                    await this.$router.push({name: 'home'});
             }
         }
     }

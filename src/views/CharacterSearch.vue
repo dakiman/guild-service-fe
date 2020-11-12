@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <b-form >
+                    <b-form>
                         <b-form-group label="Realm" label-for="realm">
                             <b-form-input
                                 id="realm"
@@ -19,11 +19,11 @@
                             @change="region => this.form.region = region"/>
                         <b-form-group>
                             <b-button
-                                    id="findCharacterButton"
-                                    block
-                                    type="button"
-                                    @click="getCharacter"
-                                    variant="primary">
+                                id="findCharacterButton"
+                                block
+                                type="button"
+                                @click="getCharacter"
+                                variant="primary">
                                 <template v-if="!loading">Find Character</template>
                                 <template v-else>
                                     <b-spinner
@@ -42,15 +42,15 @@
                             <b-col md="3">
                                 <img class="m-2 mt-3"
                                      style="border-radius: 50%;"
-                                     :src="character.media.avatar_url"
+                                     :src="character.media.avatar"
                                      alt="">
                             </b-col>
                             <b-col md="9">
-                                <b-card-body :title="character.name" :sub-title="character.realm.name">
+                                <b-card-body :title="character.name" :sub-title="character.realm">
                                     <b-card-text>
                                         Level {{character.level}}
-                                        <span :style="{ color: getClassColor(character.character_class.id) }">
-                                            {{ character.character_class.name }}
+                                        <span :style="{ color: getClassColor(character.basic.class) }">
+                                            {{ getClass(character.basic.class) }}
                                         </span>
                                     </b-card-text>
                                 </b-card-body>
@@ -97,7 +97,7 @@
 
         computed: {
             factionColor: function () {
-                if (this.character.faction.name.toLowerCase().includes('alliance')) {
+                if (this.character.basic.faction.toLowerCase().includes('alliance')) {
                     return 'alliance'
                 }
                 return 'horde'
@@ -107,17 +107,18 @@
         methods: {
             getClass,
             getClassColor,
-            getCharacter() {
+            async getCharacter() {
                 this.character = null
                 this.loading = true
-                CharacterService.getCharacter(
+
+                let res = await CharacterService.getCharacter(
                     this.form.realm,
                     this.form.character,
                     this.form.region
                 )
-                    .then(({data}) => this.character = data.character.character_data)
-                    .catch(e => console.log('Error happened', e))
-                    .finally(() => this.loading = false)
+
+                this.character = res.data.character
+                this.loading = false
             },
         }
     }
