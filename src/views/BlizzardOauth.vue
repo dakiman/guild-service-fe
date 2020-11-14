@@ -27,10 +27,10 @@
                 let code = this.$route.query.code;
                 let region = this.$route.query.locale;
                 let redirectUri = process.env.VUE_APP_REDIRECT_URL + '?locale=' + region;
-
+                console.log(redirectUri);
                 axios.post(`/${region}/blizzard-oauth`, {code, redirectUri})
                     .then(res => {
-                        this.status = `Retrieved ${res.data.characters.length} characters.`
+                        this.status = `Retrieved ${res.data.message} characters.`
                         this.$router.push('/profile');
                     })
                     .catch(err => {

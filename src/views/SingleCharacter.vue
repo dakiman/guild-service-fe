@@ -10,9 +10,14 @@
                         <b-row>
                             <b-col>
                                 <span style="font-size: 24px;">{{character.name | deslug }}</span>
-                                <div v-if="character.basic.guild">
-                                    <span><{{character.basic.guild.name | deslug }}></span>
-                                </div>
+                                <br>
+                                <router-link
+                                    class="text-muted"
+                                    v-if="character.basic.guild"
+                                    :to="{name: 'singleGuild', params: { region: character.region, realm: character.basic.guild.realm, name: character.basic.guild.name }}">
+                                    <{{character.basic.guild.name | deslug }}>
+                                </router-link>
+                                <br>
                                 <span style="font-size: 18px;" class="text-light">{{character.realm | deslug}}</span>
                             </b-col>
                         </b-row>
@@ -31,7 +36,9 @@
             <b-row class="bg-primary">
                 <b-col md="6">
                     <div class="mb-3">
-                        <b-card header-text-variant="white" align="left">
+                        <b-card
+                            header-text-variant="white"
+                            align="left">
                             <template v-slot:header>
                                 <span class="float-left">Gear</span>
                                 <b-badge
@@ -42,9 +49,33 @@
                                 </b-badge>
                             </template>
 
-                            <div class="d-inline" v-for="item in character.equipment" :key="item.id">
-                                <item-link :item="item"/>
-                            </div>
+                            <wowhead-link v-for="item in character.equipment" :key="item.id"
+                                          :item-id="item.id"
+                                          :item-level="item.itemLevel"
+                                          :quality="item.quality"
+                            />
+                        </b-card>
+                    </div>
+                </b-col>
+                <b-col md="6">
+                    <div class="mb-3">
+                        <b-card
+                            header-text-variant="white"
+                            align="center">
+                            <template v-slot:header>
+                                <span class="float-left">Spec</span>
+                                <b-badge
+                                    pill
+                                    variant="primary"
+                                    class="float-right"
+                                >{{ character.specialization.activeSpecialization }}
+                                </b-badge>
+                            </template>
+
+                            <wowhead-link class="mx-3"
+                                          v-for="talent in character.specialization.talents"
+                                          :spell-id="talent"
+                                          :key="talent"/>
                         </b-card>
                     </div>
                 </b-col>
@@ -56,16 +87,15 @@
 <script>
     import CharacterService from "@/services/CharacterService";
     import {getClass, getClassColor, itemQualityToId} from "@/modules/staticData";
-    import ItemLink from "@/components/ItemLink";
+    import WowheadLink from "@/components/WowheadLink";
 
     export default {
         name: "SingleCharacter",
-        components: {ItemLink},
+        components: {WowheadLink},
 
         data() {
             return {
                 character: null,
-                raidingData: null
             };
         },
 
