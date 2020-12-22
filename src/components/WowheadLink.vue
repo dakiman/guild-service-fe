@@ -9,6 +9,9 @@
         <div class="mx-auto" v-if="itemLevel">
             <span :style="{ color: getItemQualityColorHex(quality) }">{{itemLevel}}</span>
         </div>
+        <div class="mx-auto" v-if="additionalData">
+            <span>{{additionalData}}</span>
+        </div>
     </div>
 </template>
 
@@ -33,6 +36,9 @@
             itemLevel: {
                 required: false,
                 type: Number
+            },
+            additionalData: {
+                required: false,
             },
         },
         methods: {
