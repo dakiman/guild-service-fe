@@ -31,6 +31,18 @@
                             </b-col>
                         </b-row>
                     </div>
+                    <div v-if="character.basic.covenant" class="float-md-right pt-3">
+                        <div class="text-right float-left">
+                            Covenant:
+                            <br>
+                            Renown:
+                        </div>
+                        <div class="float-right ml-2">
+                            {{ character.basic.covenant.name }}
+                            <br>
+                            {{ character.basic.covenant.renown }}
+                        </div>
+                    </div>
                 </b-col>
             </b-row>
             <b-row class="bg-primary">
@@ -48,8 +60,8 @@
                                 >iLvl: {{character.basic.average_item_level}} ({{character.basic.equipped_item_level}})
                                 </b-badge>
                             </template>
-
-                            <wowhead-link v-for="item in character.equipment" :key="item.id"
+                            <wowhead-link v-for="item in character.equipment"
+                                          :key="item.id"
                                           :item-id="item.id"
                                           :item-level="item.itemLevel"
                                           :quality="item.quality"
@@ -74,8 +86,9 @@
 
                             <wowhead-link class="mx-3"
                                           v-for="talent in character.specialization.talents"
-                                          :spell-id="talent"
-                                          :key="talent"/>
+                                          :spell-id="talent.id"
+                                          :additional-data="getTalentRowLevel(talent.row)"
+                                          :key="talent.id"/>
                         </b-card>
                     </div>
                 </b-col>
@@ -86,7 +99,7 @@
 
 <script>
     import CharacterService from "@/services/CharacterService";
-    import {getClass, getClassColor, itemQualityToId} from "@/modules/staticData";
+    import {getClass, getClassColor, itemQualityToId, getTalentRowLevel} from "@/modules/staticData";
     import WowheadLink from "@/components/WowheadLink";
 
     export default {
@@ -108,6 +121,7 @@
             getClass,
             getClassColor,
             itemQualityToId,
+            getTalentRowLevel,
             async getCharacter() {
                 this.character = null;
                 this.loading = true;
