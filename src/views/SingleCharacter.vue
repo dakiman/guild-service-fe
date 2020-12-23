@@ -31,6 +31,18 @@
                             </b-col>
                         </b-row>
                     </div>
+                    <div v-if="character.basic.covenant" class="float-md-right pt-3">
+                        <div class="text-right float-left">
+                            Covenant:
+                            <br>
+                            Renown:
+                        </div>
+                        <div class="float-right ml-2">
+                            {{ character.basic.covenant.name }}
+                            <br>
+                            {{ character.basic.covenant.renown }}
+                        </div>
+                    </div>
                 </b-col>
             </b-row>
             <b-row class="bg-primary">
@@ -48,7 +60,8 @@
                                 >iLvl: {{character.basic.average_item_level}} ({{character.basic.equipped_item_level}})
                                 </b-badge>
                             </template>
-                            <wowhead-link v-for="item in character.equipment" :key="item.id"
+                            <wowhead-link v-for="item in character.equipment"
+                                          :key="item.id"
                                           :item-id="item.id"
                                           :item-level="item.itemLevel"
                                           :quality="item.quality"
